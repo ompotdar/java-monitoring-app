@@ -1,0 +1,19 @@
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <Http name="Splunk" url="https://splunk-hec-url:8088/services/collector">
+            <Headers>
+                <Property name="Authorization">Splunk YOUR_SPLUNK_HEC_TOKEN</Property>
+            </Headers>
+            <PatternLayout pattern="{\"time\": \"%d{UNIX}\", \"event\": \"%m\", \"level\": \"%p\"}"/>
+        </Http>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="Splunk"/>
+        </Root>
+    </Loggers>
+</Configuration>
